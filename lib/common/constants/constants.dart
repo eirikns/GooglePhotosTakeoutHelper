@@ -34,6 +34,9 @@ const List<String> specialFolders = <String>[
   'ゴミ箱', // JA (trash)
   'arxiu', // CA
   'paperera', // CA (trash)
+  'arkivér', // NO
+  'papirkurv', // NO (trash)
+  'låst mappe', // NO (locked folder)
 ];
 
 /// Untitled albums folders
@@ -62,6 +65,7 @@ const List<String> untitledAlbums = <String>[
   '無題', // JA
   'desconegut', // CA
   'sense títol', // CA
+  'uten tittel', // NO
 ];
 
 /// File extensions for additional media formats not covered by MIME types

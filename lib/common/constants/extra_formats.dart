@@ -30,6 +30,7 @@ const List<String> extraFormats = <String>[
   '-ha editado', // ES - @Sappstal report
   '-editado', // IT
   '-editat', // CA - @Sappstal report
+  '-redigert', // NO
   // Add more "edited" flags in more languages if you want.
   // They need to be lowercase.
 ];

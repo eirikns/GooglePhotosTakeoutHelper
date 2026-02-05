@@ -12,16 +12,17 @@ class TakeoutFolderClassifierService {
   const TakeoutFolderClassifierService();
 
   /// Regex pattern for multilingual "Photos from" folder prefixes
-  /// Supports English (Photos from), Spanish (Fotos del), and German (Fotos von)
-  static const String photosFromPattern = r'Photos from|Fotos del|Fotos von';
+  /// Supports English (Photos from), Spanish (Fotos del), German (Fotos von), and Norwegian
+  /// (Bilder fra).
+  static const String photosFromPattern = r'Photos from|Fotos del|Fotos von|Bilder fra';
 
   /// Complete regex pattern for year folders with multilingual support
-  /// Matches "Photos from YYYY", "Fotos del YYYY", "Fotos von YYYY" where YYYY is any 4-digit year
-  static const String yearFolderPattern = r'^(Photos from|Fotos del|Fotos von) \d{4}$';
+  /// Matches "Photos from YYYY", "Fotos del YYYY", "Fotos von YYYY", "Bilder fra YYYY" where YYYY is any 4-digit year
+  static const String yearFolderPattern = r'^(Photos from|Fotos del|Fotos von|Bilder fra) \d{4}$';
 
   /// Case-insensitive regex pattern for localized folder names with whitespace handling
-  /// Used for matching folder names like "Photos from", "Fotos del", "Fotos von"
-  static const String localizedYearPattern = r'photos\s+from|fotos\s+del|fotos\s+von';
+  /// Used for matching folder names like "Photos from", "Fotos del", "Fotos von", "Bilder fra"
+  static const String localizedYearPattern = r'photos\s+from|fotos\s+del|fotos\s+von|bilder\s+fra';
 
   /// Determines if a directory is a Google Photos year folder
   ///

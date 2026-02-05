@@ -12,7 +12,7 @@ class TakeoutFolderClassifierService {
   const TakeoutFolderClassifierService();
 
   /// Regex pattern for multilingual "Photos from" folder prefixes
-  /// Supports English (Photos from), Spanish (Fotos del), German (Fotos von), and Dutch (Foto_s van)
+  /// Supports English (Photos from), Spanish (Fotos del), German (Fotos von), Dutch (Foto_s van) and Norwegian (Bilder fra)
   static const String photosFromPattern = r'Photos from|Fotos del|Fotos von|Foto da|Foto_s van|Bilder fra';
 
   /// Complete regex pattern for year folders with multilingual support

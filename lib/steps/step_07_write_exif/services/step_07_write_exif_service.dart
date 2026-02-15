@@ -255,54 +255,56 @@ class WriteExifProcessingService with LoggerMixin {
               }
             }
 
-            if (truncated) {
-              for (final b in bad) {
-                final lower = b.key.path.toLowerCase();
-                if (lower.endsWith('.jpg') || lower.endsWith('.jpeg')) {
-                  forceJpegXmp.add(lower);
-                  _retagEntryToXmpIfJpeg(b);
+            if (bad.isNotEmpty) {
+              if (truncated) {
+                for (final b in bad) {
+                  final lower = b.key.path.toLowerCase();
+                  if (lower.endsWith('.jpg') || lower.endsWith('.jpeg')) {
+                    forceJpegXmp.add(lower);
+                    _retagEntryToXmpIfJpeg(b);
+                  }
                 }
               }
-            }
 
-            await restoreMtimes(snap);
+              await restoreMtimes(snap);
 
-            if (good.isNotEmpty) {
-              await writeBatchSafe(
-                good,
-                useArgFile: useArgFile,
-                isVideoBatch: isVideoBatch,
-              );
-            }
+              if (good.isNotEmpty) {
+                await writeBatchSafe(
+                  good,
+                  useArgFile: useArgFile,
+                  isVideoBatch: isVideoBatch,
+                );
+              }
 
-            for (final entry in bad) {
-              final singleSnap = snapshotMtimes([entry]);
-              try {
-                await preserveMTime(entry.key, () async {
-                  await exifWriter.writeTagsWithExifToolSingle(
-                    entry.key,
-                    entry.value,
-                  );
-                });
-              } catch (e2) {
-                if (!shouldSilenceExiftoolError(e2)) {
-                  logWarning(
-                    isVideoBatch
-                        ? '[Step 7/8] Per-file video write failed: ${entry.key.path} -> $e2'
-                        : '[Step 7/8] Per-file write failed: ${entry.key.path} -> $e2',
-                  );
+              for (final entry in bad) {
+                final singleSnap = snapshotMtimes([entry]);
+                try {
+                  await preserveMTime(entry.key, () async {
+                    await exifWriter.writeTagsWithExifToolSingle(
+                      entry.key,
+                      entry.value,
+                    );
+                  });
+                } catch (e2) {
+                  if (!shouldSilenceExiftoolError(e2)) {
+                    logWarning(
+                      isVideoBatch
+                          ? '[Step 7/8] Per-file video write failed: ${entry.key.path} -> $e2'
+                          : '[Step 7/8] Per-file write failed: ${entry.key.path} -> $e2',
+                    );
+                  }
+                  await _tryDeleteTmp(entry.key);
+                } finally {
+                  await restoreMtimes(singleSnap);
                 }
-                await _tryDeleteTmp(entry.key);
-              } finally {
-                await restoreMtimes(singleSnap);
+                if (finalFlushBar != null) {
+                  finalFlushDone += 1;
+                  finalFlushBar.update(finalFlushDone);
+                }
               }
-              if (finalFlushBar != null) {
-                finalFlushDone += 1;
-                finalFlushBar.update(finalFlushDone);
-              }
-            }
 
-            return;
+              return;
+            }
           }
 
           if (!shouldSilenceExiftoolError(e)) {

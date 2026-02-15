@@ -67,7 +67,7 @@ const List<String> untitledAlbums = <String>[
 /// File extensions for additional media formats not covered by MIME types
 class MediaExtensions {
   /// Raw camera formats and special video formats
-  static const List<String> additional = <String>['.mp', '.mv', '.dng', '.cr2'];
+  static const List<String> additional = <String>['.mp', '.mv', '.dng', '.cr2', '.orf', '.rw2'];
 }
 
 /// Default width for progress bars in console output

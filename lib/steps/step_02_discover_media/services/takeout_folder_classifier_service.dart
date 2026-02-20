@@ -17,12 +17,14 @@ class TakeoutFolderClassifierService {
   static const String photosFromPattern = r'Photos from|Fotos del|Fotos von|Bilder fra';
 
   /// Complete regex pattern for year folders with multilingual support
-  /// Matches "Photos from YYYY", "Fotos del YYYY", "Fotos von YYYY", "Bilder fra YYYY" where YYYY is any 4-digit year
-  static const String yearFolderPattern = r'^(Photos from|Fotos del|Fotos von|Bilder fra) \d{4}$';
+  /// Matches "Photos from YYYY", "Fotos del YYYY", "Fotos von YYYY" where YYYY is any 4-digit year
+  static const String yearFolderPattern =
+      r'^(Photos from|Fotos del|Fotos von|Bilder fra) \d{4}$';
 
   /// Case-insensitive regex pattern for localized folder names with whitespace handling
-  /// Used for matching folder names like "Photos from", "Fotos del", "Fotos von", "Bilder fra"
-  static const String localizedYearPattern = r'photos\s+from|fotos\s+del|fotos\s+von|bilder\s+fra';
+  /// Used for matching folder names like "Photos from", "Fotos del", "Fotos von"
+  static const String localizedYearPattern =
+      r'photos\s+from|fotos\s+del|fotos\s+von|bilder\s+fra';
 
   /// Determines if a directory is a Google Photos year folder
   ///
@@ -31,9 +33,8 @@ class TakeoutFolderClassifierService {
   ///
   /// [dir] Directory to check
   /// Returns true if it's a year folder
-  bool isYearFolder(final Directory dir) => RegExp(
-    yearFolderPattern,
-  ).hasMatch(path.basename(dir.path));
+  bool isYearFolder(final Directory dir) =>
+      RegExp(yearFolderPattern).hasMatch(path.basename(dir.path));
 
   /// Determines if a directory is an album folder
   ///

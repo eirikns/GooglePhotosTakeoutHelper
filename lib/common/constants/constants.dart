@@ -48,7 +48,7 @@ const List<String> untitledAlbums = <String>[
   'desconhecido', // PT
   'sem título', // PT
   'sconosciuto', // IT
-  'senza titolo', // IT
+  'senza nome', // IT
   'inconnu', // FR
   'sans titre', // FR
   'Unbenannt', // DE
